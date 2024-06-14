@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Page Title</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/howler/2.2.3/howler.min.js"></script>
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // List of dzīvnieki to randomly choose from
+            var dzīvnieki = ["Kakis", "Pertikis", "Zilonis", "Lauva"];
+            console.log("Script is executing."); // Check if the script is executing
+
+            // Function to play the audio file
+            function playAudio(word) {
+                var sound = new Howl({
+                    src: [word + ".mp3"],
+                    autoplay: true,
+                    onend: function () {
+                        // Do something when the audio finishes playing
+                    }
+                });
+            }
+
+            // Function to randomly select a word from the list
+            function getRandomWord() {
+                return dzīvnieki[Math.floor(Math.random() * dzīvnieki.length)];
+            }
+
+            // Function to update the content of the h1 element with a random word
+            function updateHeading() {
+                var h1Element = document.querySelector("h1");
+                var randomWord = getRandomWord();
+                h1Element.textContent = randomWord;
+                playAudio(randomWord); // Play audio corresponding to the random word
+            }
+
+            // Function to handle user click and update heading
+            function handleButtonClick() {
+                updateHeading();
+                setInterval(updateHeading, 5000); // Change the word every 5 seconds
+            }
+
+            // Attach the handleButtonClick function to a button click event
+            var button = document.getElementById("playButton");
+            button.addEventListener("click", handleButtonClick);
+        });
+    </script>
+</head>
+
+<body>
+    <h1></h1>
+    <button id="playButton">AIZIET!</button>
+</body>
+
+</html>
